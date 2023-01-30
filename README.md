@@ -2,8 +2,8 @@
 ## Guidelines
 - Tech stack
   - Javascript or Typescript
-  - Use Node to create a new project and npm to install dependencies
-  - Jest for running tests
+  - [Node](https://nodejs.org/) and [npm](https://www.npmjs.com/)
+  - [Jest](https://jestjs.io/) for running tests
 - Do test-driven development
 - Implement the functionality iteratively
   - It is recommended to write acceptance criteria for the requirements before starting
