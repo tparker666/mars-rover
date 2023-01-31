@@ -11,15 +11,16 @@
 - There are many solutions for this problem online but DON’T LOOK AT THEM!
 
 ## Setup
+- Fork your own copy of this codebase and clone it
 - Install [nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-  - This lets you switch Node versions between projects
+  - nvm lets you switch Node versions between projects
   - This project has an `.nvmrc` file with a specific version of Node
-  - Run `nvm install` to get that version of node
-  - After it is installed, run `nvm use` to switch to it
+  - Run `nvm install` to install Node
+  - Run `nvm use` to switch Node versions
   - Optional but recommended: [set up shell integration to automatically switch versions based on directory](https://github.com/nvm-sh/nvm#deeper-shell-integration)
+    - I use the custom hook in `.zshrc`
 - Install dependencies: `npm install`
-- Run tests: `npm run test`
-  - Watch mode: `npm run test:watch
+- Run tests: `npm run test` or `npm run test:watch`
 - Run the app: `npm start`
 
 ## Problem description
