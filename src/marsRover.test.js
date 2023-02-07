@@ -84,14 +84,48 @@ describe("marsRover", () => {
   });
 
 //todo: fix the tests below
-  it("should move rover 1 square in direction of orientation", () => {
-    const input = INPUTDATA;
+  it("should move rover 1 square 'S' ", () => {
+  //  const input = INPUTDATA;
+    const input = '5 5\n1 2 S\nM';
     const plateau = new CreatePlateau(input);
 
     const rover = new CreateRover(input, plateau, 1);
+    moveRover(rover);
 
-    expect(1).toEqual(1);
+    expect(rover.x).toEqual(1);
+    expect(rover.y).toEqual(1);
+
    // expect(rover.moveInstructions).toEqual('LMLMLMMM')
+
+  });
+
+  it("should move rover 1 square 'W' ", () => {
+    //  const input = INPUTDATA;
+    const input = '5 5\n2 1 W\nM';
+    const plateau = new CreatePlateau(input);
+
+    const rover = new CreateRover(input, plateau, 1);
+    moveRover(rover);
+
+    expect(rover.x).toEqual(1);
+    expect(rover.y).toEqual(1);
+
+    // expect(rover.moveInstructions).toEqual('LMLMLMMM')
+
+  });
+
+  it("should move rover 1 square 'W' ", () => {
+    //  const input = INPUTDATA;
+    const input = '5 5\n1 0 N\nM';
+    const plateau = new CreatePlateau(input);
+
+    const rover = new CreateRover(input, plateau, 1);
+    moveRover(rover);
+
+    expect(rover.x).toEqual(1);
+    expect(rover.y).toEqual(1);
+
+    // expect(rover.moveInstructions).toEqual('LMLMLMMM')
 
   });
 

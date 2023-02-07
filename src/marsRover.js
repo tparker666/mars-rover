@@ -140,7 +140,7 @@ function moveRover(rover){
   moveRover1(rover, rover.moveInstructions);
 
 
-  function moveRover1(rover, moveInstructions) {
+  function moveRover1(rover) {
     let x = 1;
     let instructions = rover.moveInstructions.split('');
 
