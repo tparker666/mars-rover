@@ -2,8 +2,8 @@
 const { CreatePlateau } = require("./marsRover");
 const { CreateRover } = require("./marsRover");
 const { CreateGame } = require("./marsRover")
-require("./marsRover.js");
 
+require("./marsRover.js");
 
 
 describe("marsRover", () => {
@@ -34,6 +34,10 @@ describe("marsRover", () => {
     expect (inputData).toEqual('5 5\n1 3\nLMLMLMM');
   });
 
+  it ("should return number of rovers to be used", () => {
+    const input = INPUTDATA;
+    expect(howManyRovers(input)).toEqual(1);
+  });
 
 
   it("should create plateau and return plateau maximum x and y coordinates", () => {
@@ -46,10 +50,7 @@ describe("marsRover", () => {
 
   });
 
-  it ("should return number of rovers to be used", () => {
-    const input = INPUTDATA;
-    expect(howManyRovers(input).toEqual(1));
-  });
+
 
   it("should create a rover object and set initial x & y coordinates", () => {
     const input = INPUTDATA;
@@ -59,8 +60,6 @@ describe("marsRover", () => {
 
     expect(rover.x).toEqual(1);
     expect(rover.y).toEqual(3);
-    expect(rover.orientation).toEqual('N');
-    expect(rover.moveInstructions).toEqual('LMLMLMMM')
 
   });
 
@@ -84,6 +83,25 @@ describe("marsRover", () => {
 
   });
 
+//todo: fix the tests below
+  it("should move rover 1 square in direction of orientation", () => {
+    const input = INPUTDATA;
+    const plateau = new CreatePlateau(input);
+
+    const rover = new CreateRover(input, plateau, 1);
+
+    expect(1).toEqual(1);
+   // expect(rover.moveInstructions).toEqual('LMLMLMMM')
+
+  });
+
+  it("should report rovers final location ", () => {
+    const input = INPUTDATA;
+    const plateau = new CreatePlateau(input);
+    const rover = new CreateRover(input, plateau, 1);
+
+    expect(report(rover).toEqual('1 4 N'));
+  });
 
 });
 

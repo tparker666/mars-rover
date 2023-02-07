@@ -20,10 +20,13 @@ const run = () => {
 
   }
 
-  // for (let i = 0; i < rovers.length; i++){
-  //   rovers[i].moveRover();
-  // }
+  for (let i = 0; i < rovers.length; i++){
+    moveRover(rovers[i]);
+  }
 
+  for (let i = 0; i < rovers.length; i++){
+    report(rovers[i]);
+  }
 let x = 1;
 
 
@@ -94,22 +97,16 @@ function CreateRover(input, plateau, roverNumber){
   this.y = getYCoordinate(input, roverNumber);
   this.orientation = getOrientation(input, roverNumber);
   this.moveInstructions = getMoveInstructions(input, roverNumber);
-//  this.moveRover = moveRover1();
 
 
   function getXCoordinate(input, roverNumber){
-    // let tmp1 = input.split('\n');
-    // let tmp2 = tmp1[roverNumber].split(' ');
     let tmp2 = splitToRoverPosition(input,roverNumber);
     let tmp3 = tmp2[0].toString();
 
     return(parseInt(tmp3));
-//    return 1;
   }
 
   function getYCoordinate(input, roverNumber){
-    // let tmp1 = input.split('\n');
-    // let tmp2 = tmp1[roverNumber].split(' ');
     let tmp2 = splitToRoverPosition(input, roverNumber);
     let tmp3 = tmp2[1].toString();
 
@@ -117,8 +114,6 @@ function CreateRover(input, plateau, roverNumber){
   }
 
   function getOrientation(input, roverNumber){
-    // let tmp1 = input.split('\n');
-    // let tmp2 = tmp1[roverNumber].split(' ');
     let tmp2 = splitToRoverPosition(input, roverNumber);
     let tmp3 = tmp2[2].toString();
 
@@ -136,12 +131,58 @@ function CreateRover(input, plateau, roverNumber){
 
     return(tmp3);
   }
+}
 
-  function moveRover1(){
-    let x = 'in moveRover';
+function moveRover(rover){
+  let x = 'in moveRover';
+  let xnow = rover.x;
+
+  moveRover1(rover, rover.moveInstructions);
+
+
+  function moveRover1(rover, moveInstructions) {
+    let x = 1;
+    let instructions = rover.moveInstructions.split('');
+
+    for (let value of instructions) {
+      if (value === 'L') {
+        rover.orientation = turnLeft(rover.orientation);
+      }
+      if (value === 'R') {
+        rover.orientation = turnRight(rover.orientation);
+      }
+      if (value === 'M') {
+        moveForward(rover);
+      }
+    }
+  }
+
+  function turnLeft(direction) {
+    if (direction === 'N')        return 'W';
+    else if (direction === 'W')   return 'S';
+    else if (direction === 'S')   return 'E';
+    else if (direction === 'E')   return 'N';
+  }
+
+  function turnRight(direction) {
+    if (direction === 'N')        return 'E';
+    else if (direction === 'W')   return 'N';
+    else if (direction === 'S')   return 'W';
+    else if (direction === 'E')   return 'S';
+  }
+
+  function moveForward(rover) {
+    if (rover.orientation === 'N')        rover.y += 1;
+    else if (rover.orientation === 'S')   rover.y -= 1;
+    else if (rover.orientation === 'W')   rover.x -= 1;
+    else if (rover.orientation === 'E')   rover.x += 1;
   }
 }
 
+function report(rover){
+  console.log('rover location: ', rover.x, ' ', rover.y, ' ',
+      rover.orientation);
+}
 
 
 module.exports = {CreatePlateau,
