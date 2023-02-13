@@ -1,8 +1,16 @@
 
+//done: read input
+//done: create plateau
+//done: create rovers
+//done: move rover1, repeat for each rover
+//done: report final location
+//done: move rover backwards
+//done: edge detection.  and what do we do when we reach an edge
+//todo: multiple rovers.  push it out of the way
+//todo: rotate through the rovers executing 1 instruction each rotation
 
-//console.log();
 
-//const fs = require("fs");
+
 const TESTFILE = '/Users/terryparker/Learning/mars-rover/src/input.txt';
 
 const run = () => {
@@ -27,20 +35,6 @@ const run = () => {
   for (let i = 0; i < rovers.length; i++){
     report(rovers[i]);
   }
-let x = 1;
-
-
-
-
-
-  //todo: read input
-  //todo: create plateau
-  //todo: create rovers
-  //todo: move rover1, repeat for each rover
-  //todo: report final location
-
-
-
 
 };
 
@@ -87,11 +81,10 @@ function CreatePlateau(input){
 
 
 
-
-
 function CreateRover(input, plateau, roverNumber){
   this.plateauMaxX = plateau.maxX; //plateauGetMaxX(input);
   this.plateauMaxY = plateau.maxY; //plateauGetMaxY(input);
+  this.atEdge = false;
   this.x = getXCoordinate(input, roverNumber);
   this.y = getYCoordinate(input, roverNumber);
   this.orientation = getOrientation(input, roverNumber);
@@ -130,13 +123,15 @@ function CreateRover(input, plateau, roverNumber){
 
     return(tmp3);
   }
-
 }
 
 function moveRover(rover){
+
     let instructions = rover.moveInstructions.split('');
 
     for (let value of instructions) {
+      if (rover.atEdge)
+       return
       if (value === 'L') {
         rover.orientation = turnLeft(rover.orientation);
       }
@@ -145,6 +140,9 @@ function moveRover(rover){
       }
       if (value === 'M') {
         moveForward(rover);
+      }
+      if (value === 'B'){
+        moveBackward(rover);
       }
   }
 
@@ -163,17 +161,63 @@ function moveRover(rover){
   }
 
   function moveForward(rover) {
-    if (rover.orientation === 'N')        rover.y += 1;
-    else if (rover.orientation === 'S')   rover.y -= 1;
-    else if (rover.orientation === 'W')   rover.x -= 1;
-    else if (rover.orientation === 'E')   rover.x += 1;
+    if (rover.orientation === 'N') {
+      if (rover.y === rover.plateauMaxY) {
+        rover.y += 1;
+        rover.atEdge = true;
+      } else {
+        rover.y += 1
+      }
+    }
+    else if (rover.orientation === 'S') {
+      if (rover.y === 0) {
+        rover.y -= 1;
+        rover.atEdge = true;
+      } else {
+        rover.y -= 1
+      }
+    }
+    else if (rover.orientation === 'W') {
+      if (rover.x === 0){
+        rover.x -= 1;
+        rover.atEdge = true;
+      }
+      else { rover.x -= 1}
+    }
+    else if (rover.orientation === 'E') rover.x += 1;
   }
+
+  function moveBackward(rover) {
+    if (rover.orientation === 'N') rover.y -= 1;
+    else if (rover.orientation === 'S') rover.y += 1;
+    else if (rover.orientation === 'W') rover.x += 1;
+    else if (rover.orientation === 'E') rover.x -= 1;
+  }
+
+
+    function atWestEdge(rover){
+      if (rover.x === 0)
+        return true;
+    }
+    function atSouthEdge(rover){
+      if (rover.y === 0)
+        return true;
+    }
+
 }
 
 function report(rover){
-  let roverLocation = rover.x +' '+rover.y + ' ' + rover.orientation;
+  let roverLocation;
+  if (rover.x > rover.plateauMaxX)
+    roverLocation = '+' + rover.plateauMaxX + ' ';
+  else
+    roverLocation = rover.x + ' ';
+  if (rover.y > rover.plateauMaxY)
+    roverLocation += '+' + rover.plateauMaxY;
+  else
+      roverLocation += rover.y;
+  roverLocation += ' ' + rover.orientation;
   console.log('rover location: ', roverLocation);
-  //rover.x, ' ', rover.y, ' ',      rover.orientation);
   return roverLocation;
 }
 
@@ -184,4 +228,4 @@ module.exports = {CreatePlateau,
 
 
 
-//run();
+run();

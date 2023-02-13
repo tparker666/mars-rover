@@ -22,7 +22,6 @@ describe("marsRover", () => {
 
   it("should do something", () =>{
     const value = 55;
-
     expect(value).toEqual(55);
   });
 
@@ -140,6 +139,72 @@ describe("marsRover", () => {
   });
 
 
+  it("should move rover backwards when a 'B' instruction is found", () =>{
+//    const input = INPUTDATA;
+    const input = '5 5\n1 1 N\nB';
+    const plateau = new CreatePlateau(input);
+    const rover = new CreateRover(input, plateau, 1);
+    moveRover(rover);
+
+    expect(report(rover)).toEqual('1 0 N');
+  });
+
+  it("should move rover forward and backward ", () =>{
+//    const input = INPUTDATA;
+    const input = '5 5\n1 1 N\nLMLMLMBRB';
+    const plateau = new CreatePlateau(input);
+    const rover = new CreateRover(input, plateau, 1);
+    moveRover(rover);
+
+    expect(report(rover)).toEqual('0 1 S');
+  });
+
+  it("should move rover forward and backward test 2", () =>{
+//    const input = INPUTDATA;
+    const input = '5 5\n1 1 N\nLMLMLMRB';
+    const plateau = new CreatePlateau(input);
+    const rover = new CreateRover(input, plateau, 1);
+    moveRover(rover);
+
+    expect(report(rover)).toEqual('1 1 S');
+  });
+
+  //todo test for edge
+  it("should stop rover when attempting to move past 'x' edge and not make any other moves", () => {
+    const input = '5 5\n1 1 N\nLMMMM';
+    const plateau = new CreatePlateau(input);
+    const rover = new CreateRover(input, plateau, 1);
+    moveRover(rover);
+
+    expect(report(rover)).toEqual('-1 1 W');
+  });
+
+  it("should stop rover when attempting to move past 'y' edge and not make any other moves", () => {
+    const input = '5 5\n1 1 N\nLLMMMM';
+    const plateau = new CreatePlateau(input);
+    const rover = new CreateRover(input, plateau, 1);
+    moveRover(rover);
+
+    expect(report(rover)).toEqual('1 -1 S');
+  });
+
+  it("should stop rover when attempting to move past max 'y' edge and not make any other moves", () => {
+    const input = '5 5\n1 1 N\nMMMMMM';
+    const plateau = new CreatePlateau(input);
+    const rover = new CreateRover(input, plateau, 1);
+    moveRover(rover);
+
+    expect(report(rover)).toEqual('1 +5 N');
+  });
+
+  it("should stop rover when attempting to move past max 'x' edge and not make any other moves", () => {
+    const input = '5 5\n1 1 E\nMMMMMM';
+    const plateau = new CreatePlateau(input);
+    const rover = new CreateRover(input, plateau, 1);
+    moveRover(rover);
+
+    expect(report(rover)).toEqual('+5 1 E');
+  });
 
 });
 
