@@ -1,6 +1,7 @@
 
-const { CreatePlateau } = require("./marsRover");
-const { CreateRover } = require("./marsRover");
+const { CreatePlateau, CreateRover, readInputData, howManyRovers, moveRover, report } = require("./marsRover");
+// const { CreateRover } = require("./marsRover");
+
 
 require("./marsRover.js");
 
@@ -8,13 +9,14 @@ require("./marsRover.js");
 describe("marsRover", () => {
 
   const INPUTDATA ='5 5\n1 3 N\nLMLMLMMM'
+  const BADINPUTDATA = '5 5\n1 3 N\nLMMLMLMM'
   const PLATEAUX = '5';
   const PLATEAUY = '5';
   const ROVERX = '1';
   const ROVERY = '3';
   const ROVERORIENTATION = 'N';
   const ROVERMOVES = 'LMLMLMMM';
-  const TESTFILE1 = '/Users/terryparker/Learning/mars-rover/src/input.txt';
+  const TESTFILE1 = '/Users/terryparker/Learning/mars-rover/src/test.txt';
 
   it.todo("should do something really neat");
 
@@ -30,7 +32,7 @@ describe("marsRover", () => {
 
     let inputData = readInputData(TESTFILE1);
 
-    expect (inputData).toEqual('5 5\n1 3\nLMLMLMM');
+    expect (inputData).toEqual('5 5\n1 3 N\nLMLMLMMM');
   });
 
   it ("should return number of rovers to be used", () => {
@@ -113,7 +115,7 @@ describe("marsRover", () => {
 
   });
 
-  it("should move rover 1 square 'W' ", () => {
+  it("should move rover 1 square 'N' ", () => {
     //  const input = INPUTDATA;
     const input = '5 5\n1 0 N\nM';
     const plateau = new CreatePlateau(input);
@@ -132,9 +134,12 @@ describe("marsRover", () => {
     const input = INPUTDATA;
     const plateau = new CreatePlateau(input);
     const rover = new CreateRover(input, plateau, 1);
+    moveRover(rover);
 
-    expect(report(rover).toEqual('1 4 N'));
+    expect(report(rover)).toEqual('3 2 E');
   });
+
+
 
 });
 

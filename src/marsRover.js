@@ -134,14 +134,6 @@ function CreateRover(input, plateau, roverNumber){
 }
 
 function moveRover(rover){
-  let x = 'in moveRover';
-  let xnow = rover.x;
-
-  moveRover1(rover, rover.moveInstructions);
-
-
-  function moveRover1(rover) {
-    let x = 1;
     let instructions = rover.moveInstructions.split('');
 
     for (let value of instructions) {
@@ -154,7 +146,6 @@ function moveRover(rover){
       if (value === 'M') {
         moveForward(rover);
       }
-    }
   }
 
   function turnLeft(direction) {
@@ -180,15 +171,17 @@ function moveRover(rover){
 }
 
 function report(rover){
-  console.log('rover location: ', rover.x, ' ', rover.y, ' ',
-      rover.orientation);
+  let roverLocation = rover.x +' '+rover.y + ' ' + rover.orientation;
+  console.log('rover location: ', roverLocation);
+  //rover.x, ' ', rover.y, ' ',      rover.orientation);
+  return roverLocation;
 }
 
 
 module.exports = {CreatePlateau,
-    CreateRover };
+    CreateRover, readInputData, howManyRovers, moveRover, report };
 
 
 
 
-run();
+//run();
