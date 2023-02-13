@@ -44,7 +44,7 @@ let x = 1;
 
 };
 
-run();
+
 
 
 function readInputData(filePath){
@@ -52,7 +52,6 @@ function readInputData(filePath){
   let data = fs.readFileSync(filePath, 'utf8');
 
   return data;
-  // let inputSplit = data.toString().trim().split('\n');
 };
 
 
@@ -131,6 +130,7 @@ function CreateRover(input, plateau, roverNumber){
 
     return(tmp3);
   }
+
 }
 
 function moveRover(rover){
@@ -187,3 +187,8 @@ function report(rover){
 
 module.exports = {CreatePlateau,
     CreateRover };
+
+
+
+
+run();

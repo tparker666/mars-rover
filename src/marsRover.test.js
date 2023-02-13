@@ -1,7 +1,6 @@
 
 const { CreatePlateau } = require("./marsRover");
 const { CreateRover } = require("./marsRover");
-const { CreateGame } = require("./marsRover")
 
 require("./marsRover.js");
 
