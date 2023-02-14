@@ -19,16 +19,9 @@ const run = () => {
   let data = readInputData(TESTFILE);
 
   let plateau = new CreatePlateau(data);
-  let numRovers = howManyRovers(data);
-  let rovers = [];
+  let rovers = createRovers(data, plateau);
 
-  for (let i = 1; i <= numRovers*2; i+=2){
-    let tmpRover = new CreateRover(data, plateau, i);
-    rovers.push(tmpRover);
-
-  }
-
- moveRovers(rovers);
+  moveRovers(rovers);
  reportRovers(rovers);
 
 };
@@ -72,6 +65,19 @@ function CreatePlateau(input){
     let firstLine = input.split('\n',1);
     return parseInt(firstLine.toString().split(' ')[1]);
   }
+}
+
+
+
+function createRovers(data, plateau) {
+  let numRovers = howManyRovers(data);
+  let rovers = [];
+
+  for (let i = 1; i <= numRovers * 2; i += 2) {
+    let tmpRover = new CreateRover(data, plateau, i);
+    rovers.push(tmpRover);
+  }
+  return rovers;
 }
 
 
