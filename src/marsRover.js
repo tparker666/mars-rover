@@ -28,13 +28,8 @@ const run = () => {
 
   }
 
-  for (let i = 0; i < rovers.length; i++){
-    moveRover(rovers[i]);
-  }
-
-  for (let i = 0; i < rovers.length; i++){
-    report(rovers[i]);
-  }
+ moveRovers(rovers);
+ reportRovers(rovers);
 
 };
 
@@ -125,8 +120,15 @@ function CreateRover(input, plateau, roverNumber){
   }
 }
 
-function moveRover(rover){
 
+ function moveRovers(rovers) {
+
+   for (let i = 0; i < rovers.length; i++) {
+     moveRover(rovers[i]);
+   }
+ }
+
+function moveRover(rover){
     let instructions = rover.moveInstructions.split('');
 
     for (let value of instructions) {
@@ -205,6 +207,13 @@ function moveRover(rover){
     }
 
 }
+
+function reportRovers(rovers){
+  for (let i = 0; i < rovers.length; i++){
+    report(rovers[i]);
+  }
+}
+
 
 function report(rover){
   let roverLocation;
