@@ -19,14 +19,14 @@ const run = () => {
   let data = readInputData(TESTFILE);
 
   let plateau = new CreatePlateau(data);
-  let rovers = createRovers(data, plateau);
+  let rovers = createRoversArray(data, plateau);
 
   moveRovers(rovers);
  reportRovers(rovers);
 
 };
 
-
+run();
 
 
 function readInputData(filePath){
@@ -65,11 +65,13 @@ function CreatePlateau(input){
     let firstLine = input.split('\n',1);
     return parseInt(firstLine.toString().split(' ')[1]);
   }
+
+  return (getMaxX, getMaxY, this.maxX, this.maxY);
 }
 
 
 
-function createRovers(data, plateau) {
+function createRoversArray(data, plateau) {
   let numRovers = howManyRovers(data);
   let rovers = [];
 
@@ -91,6 +93,13 @@ function CreateRover(input, plateau, roverNumber){
   this.orientation = getOrientation(input, roverNumber);
   this.moveInstructions = getMoveInstructions(input, roverNumber);
 
+
+  this.getXCoord = function(input, roverNumber){
+    let tmp = splitToRoverPosition(input, roverNumber);
+    let tmp2 = tmp[0].toString();
+
+    return(parseInt(tmp2));
+  }
 
   function getXCoordinate(input, roverNumber){
     let tmp2 = splitToRoverPosition(input,roverNumber);
@@ -243,4 +252,3 @@ module.exports = {CreatePlateau,
 
 
 
-run();

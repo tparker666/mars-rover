@@ -79,6 +79,8 @@ describe("marsRover", () => {
 
     const rover = new CreateRover(input, plateau, 1);
 
+    const roverX = rover.getXCoord(input, 1);
+
     expect(rover.moveInstructions).toEqual('LMLMLMMM')
 
   });
