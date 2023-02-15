@@ -200,7 +200,7 @@ describe("marsRover", () => {
   });
 
   it("should stop rover when attempting to move past max 'x' edge and not make any other moves", () => {
-    const input = '5 5\n1 1 E\nMMMMMM';
+    const input = '5 5\n1 1 E\nMMMMML';
     const plateau = new CreatePlateau(input);
     const rover = new CreateRover(input, plateau, 1);
     moveRover(rover);

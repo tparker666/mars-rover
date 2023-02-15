@@ -1,4 +1,5 @@
 
+//todo list
 //done: read input
 //done: create plateau
 //done: create rovers
@@ -133,6 +134,8 @@ function CreateRover(input, plateau, roverNumber){
 
     return(tmp3);
   }
+
+
 }
 
 
@@ -201,7 +204,14 @@ function moveRover(rover){
       }
       else { rover.x -= 1}
     }
-    else if (rover.orientation === 'E') rover.x += 1;
+    else if (rover.orientation === 'E'){
+      if (rover.x === rover.plateauMaxX) {
+        rover.x += 1;
+        rover.atEdge = true;
+      } else {
+        rover.x += 1
+      }
+    }
   }
 
   function moveBackward(rover) {
