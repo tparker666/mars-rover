@@ -35,14 +35,13 @@ describe("marsRover", () => {
   });
 
   it ("should return number of rovers to be used", () => {
-    const input = INPUTDATA;
+    const input = INPUTDATA;  //'5 5\n1 3 N\nLMLMLMMM'
     expect(howManyRovers(input)).toEqual(1);
   });
 
 
   it("should create plateau and return plateau maximum x and y coordinates", () => {
     const input = INPUTDATA;
-
     const plateau = new CreatePlateau(input);
 
     expect(plateau.maxX).toEqual(5);
@@ -55,7 +54,6 @@ describe("marsRover", () => {
   it("should create a rover object and set initial x & y coordinates", () => {
     const input = INPUTDATA;
     const plateau = new CreatePlateau(input);
-
     const rover = new CreateRover(input, plateau, 1);
 
     expect(rover.x).toEqual(1);
@@ -66,7 +64,6 @@ describe("marsRover", () => {
   it("should create a rover object and set orientation", () => {
     const input = INPUTDATA;
     const plateau = new CreatePlateau(input);
-
     const rover = new CreateRover(input, plateau, 1);
 
     expect(rover.orientation).toEqual('N');
@@ -76,16 +73,14 @@ describe("marsRover", () => {
   it("should create a rover object and set instructions", () => {
     const input = INPUTDATA;
     const plateau = new CreatePlateau(input);
-
     const rover = new CreateRover(input, plateau, 1);
-
     const roverX = rover.getXCoord(input, 1);
 
     expect(rover.moveInstructions).toEqual('LMLMLMMM')
 
   });
 
-//todo: fix the tests below
+
   it("should move rover 1 square 'S' ", () => {
   //  const input = INPUTDATA;
     const input = '5 5\n1 2 S\nM';
@@ -97,9 +92,7 @@ describe("marsRover", () => {
     expect(rover.x).toEqual(1);
     expect(rover.y).toEqual(1);
 
-   // expect(rover.moveInstructions).toEqual('LMLMLMMM')
-
-  });
+ });
 
   it("should move rover 1 square 'W' ", () => {
     //  const input = INPUTDATA;
@@ -111,8 +104,6 @@ describe("marsRover", () => {
 
     expect(rover.x).toEqual(1);
     expect(rover.y).toEqual(1);
-
-    // expect(rover.moveInstructions).toEqual('LMLMLMMM')
 
   });
 
@@ -127,7 +118,6 @@ describe("marsRover", () => {
     expect(rover.x).toEqual(1);
     expect(rover.y).toEqual(1);
 
-    // expect(rover.moveInstructions).toEqual('LMLMLMMM')
 
   });
 
@@ -172,7 +162,7 @@ describe("marsRover", () => {
   });
 
   //todo test for edge
-  it("should stop rover when attempting to move past 'x' edge and not make any other moves", () => {
+  it("should stop rover when attempting to move past 0 'x' edge and not make any other moves", () => {
     const input = '5 5\n1 1 N\nLMMMM';
     const plateau = new CreatePlateau(input);
     const rover = new CreateRover(input, plateau, 1);
@@ -181,7 +171,7 @@ describe("marsRover", () => {
     expect(report(rover)).toEqual('-1 1 W');
   });
 
-  it("should stop rover when attempting to move past 'y' edge and not make any other moves", () => {
+  it("should stop rover when attempting to move past 0 'y' edge and not make any other moves", () => {
     const input = '5 5\n1 1 N\nLLMMMM';
     const plateau = new CreatePlateau(input);
     const rover = new CreateRover(input, plateau, 1);

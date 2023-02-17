@@ -9,3 +9,5 @@ MMMM
 MMMRMM
 1 1 S
 MMMM
+3 3 N
+BBB

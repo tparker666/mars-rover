@@ -252,6 +252,7 @@ function report(rover){
       roverLocation += rover.y;
   roverLocation += ' ' + rover.orientation;
   console.log('rover location: ', roverLocation);
+
   return roverLocation;
 }
 
