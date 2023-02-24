@@ -7,10 +7,11 @@
 //done: report final location
 //done: move rover backwards
 //done: edge detection.  and what do we do when we reach an edge
-//todo: multiple rovers.  push it out of the way
-//todo: rotate through the rovers executing 1 instruction each rotation
+//done: 45 degree turns. 'l' and 'r'.  fix moves for this too.
+//todo: multiple rovers at same coordinates.  moving rover to push stationary rover out of the way
+//todo: rotate through the rovers executing 1 instruction round robin style
 
-
+let fs = require('fs');
 
 const TESTFILE = '/Users/terryparker/Learning/mars-rover/src/input.txt';
 
@@ -30,9 +31,11 @@ const run = () => {
 run();
 
 
+
 function readInputData(filePath){
-  let fs = require('fs');
+
   let data = fs.readFileSync(filePath, 'utf8');
+
 
   return data;
 };
@@ -45,6 +48,8 @@ function howManyRovers(data){
   let numRovers = (dataSplit.length -1) /2;
   return numRovers;
 }
+
+
 
 
 function CreatePlateau(input){
@@ -67,8 +72,10 @@ function CreatePlateau(input){
     return parseInt(firstLine.toString().split(' ')[1]);
   }
 
-  return (getMaxX, getMaxY, this.maxX, this.maxY);
+//  return (getMaxX, getMaxY, this.maxX, this.maxY);  // may not need the return. research
 }
+
+
 
 
 
@@ -146,73 +153,163 @@ function CreateRover(input, plateau, roverNumber){
    }
  }
 
-function moveRover(rover){
-    let instructions = rover.moveInstructions.split('');
+function moveRover(rover) {
+  let instructions = rover.moveInstructions.split('');
 
-    for (let value of instructions) {
-      if (rover.atEdge)
-       return
-      if (value === 'L') {
-        rover.orientation = turnLeft(rover.orientation);
-      }
-      if (value === 'R') {
-        rover.orientation = turnRight(rover.orientation);
-      }
-      if (value === 'M') {
-        moveForward(rover);
-      }
-      if (value === 'B'){
-        moveBackward(rover);
-      }
+  for (let value of instructions) {
+    if (rover.atEdge)
+      return
+    if (value === 'L') {
+//      turnLeft(rover);
+      rover.orientation = turnLeft(rover.orientation);
+    }
+    if (value === 'l'){
+      rover.orientation = turnLeft45(rover.orientation);
+    }
+    if (value === 'R') {
+      rover.orientation = turnRight(rover.orientation);
+    }
+    if (value === 'r')
+      rover.orientation = turnRight45(rover.orientation);
+    if (value === 'M') {
+      moveForward(rover);
+    }
+    if (value === 'B') {
+      moveBackward(rover);
+    }
+
   }
 
   function turnLeft(direction) {
-    if (direction === 'N')        return 'W';
-    else if (direction === 'W')   return 'S';
-    else if (direction === 'S')   return 'E';
-    else if (direction === 'E')   return 'N';
+//  function turnLeft(rover){
+//    let orientation = rover.orientation;
+//    if (orientation === 'N') rover.orientation = 'W';
+//     if (orientation === 'W') rover.orientation = 'S';
+//     if (orientation === 'S') rover.orientation = 'E';
+//     if (orientation === 'E') rover.orientation = 'N';
+//     if (direction === 'N') // rover.orientation = 'W';
+    if (direction === 'N')   return 'W';
+    else if (direction === 'NW') return 'SW';
+    else if (direction === 'W') return 'S';
+    else if (direction === 'SW') return 'SE';
+    else if (direction === 'S') return 'E';
+    else if (direction === 'SE') return 'NE';
+    else if (direction === 'E') return 'N';
+  }
+
+  function turnLeft45(direction) {
+//  function turnLeft(rover){
+//    let orientation = rover.orientation;
+//    if (orientation === 'N') rover.orientation = 'W';
+//     if (orientation === 'W') rover.orientation = 'S';
+//     if (orientation === 'S') rover.orientation = 'E';
+//     if (orientation === 'E') rover.orientation = 'N';
+//     if (direction === 'N') // rover.orientation = 'W';
+    if (direction === 'N') return 'NW';
+    else if (direction === 'NW') return 'W';
+    else if (direction === 'W') return 'SW';
+    else if (direction === 'SW') return 'S';
+    else if (direction === 'S') return 'SE';
+    else if (direction === 'SE') return 'E';
+    else if (direction === 'E') return 'NE';
+    else if (direction === 'NE') return 'N';
   }
 
   function turnRight(direction) {
-    if (direction === 'N')        return 'E';
-    else if (direction === 'W')   return 'N';
-    else if (direction === 'S')   return 'W';
-    else if (direction === 'E')   return 'S';
+    if (direction === 'N') return 'E';
+    else if (direction === 'NE') return 'SE';
+    else if (direction === 'W') return 'N';
+    else if (direction === 'NW') return'NE';
+    else if (direction === 'S') return 'W';
+    else if (direction === 'SW') return 'NW';
+    else if (direction === 'E') return 'S';
+    else if (direction === 'SE') return 'SW';
+  }
+
+  function turnRight45(direction) {
+    if (direction === 'N') return 'NE';
+    else if (direction === 'NE') return 'E';
+    else if (direction === 'W') return 'NW';
+    else if (direction === 'NW') return 'N';
+    else if (direction === 'S') return 'SW';
+    else if (direction === 'SW') return 'W';
+    else if (direction === 'E') return 'SE';
+    else if (direction === 'SE') return 'S';
   }
 
   function moveForward(rover) {
     if (rover.orientation === 'N') {
       if (rover.y === rover.plateauMaxY) {
+//        moveOne(rover, [0, 1]);  // use this to
         rover.y += 1;
         rover.atEdge = true;
       } else {
         rover.y += 1
       }
-    }
-    else if (rover.orientation === 'S') {
+    } else if (rover.orientation === 'S') {
       if (rover.y === 0) {
         rover.y -= 1;
         rover.atEdge = true;
       } else {
         rover.y -= 1
       }
-    }
-    else if (rover.orientation === 'W') {
-      if (rover.x === 0){
+    } else if (rover.orientation === 'W') {
+      if (rover.x === 0) {
         rover.x -= 1;
         rover.atEdge = true;
+      } else {
+        rover.x -= 1
       }
-      else { rover.x -= 1}
-    }
-    else if (rover.orientation === 'E'){
+    } else if (rover.orientation === 'E') {
       if (rover.x === rover.plateauMaxX) {
         rover.x += 1;
         rover.atEdge = true;
       } else {
         rover.x += 1
       }
+    } else if (rover.orientation === 'NE') {
+      if (rover.x === rover.plateauMaxX || rover.y === rover.plateauMaxY) {
+        rover.x += 1;
+        rover.y += 1;
+        rover.atEdge = true;
+      } else {
+        rover.x += 1;
+        rover.y += 1;
+      }
+    } else if (rover.orientation === 'NW') {
+      if (rover.x === 0 || rover.y === rover.plateauMaxY ) {
+        rover.x -= 1;
+        rover.y += 1;
+        rover.atEdge = true;
+      } else {
+        rover.x -= 1;
+        rover.y += 1;
+      }
+    } else if (rover.orientation === 'SE') {
+      if (rover.x === rover.plateauMaxX || rover.y === 0 ) {
+        rover.x += 1;
+        rover.y -= 1;
+        rover.atEdge = true;
+      } else {
+        rover.x += 1;
+        rover.y -= 1;
+      }
+    } else if (rover.orientation === 'SW') {
+      if (rover.x === 0 || rover.y === 0) {
+        rover.x -= 1;
+        rover.y -= 1;
+        rover.atEdge = true;
+      } else {
+        rover.x -= 1;
+        rover.y -= 1;
+      }
     }
   }
+  function moveOne(rover, coord){
+    rover.y += coord[1];
+    rover.x += coord[0];
+  }
+
 
   function moveBackward(rover) {
     if (rover.orientation === 'N') rover.y -= 1;
@@ -234,9 +331,11 @@ function moveRover(rover){
 }
 
 function reportRovers(rovers){
+  let finalReport = '';
   for (let i = 0; i < rovers.length; i++){
-    report(rovers[i]);
+    finalReport += report(rovers[i]) + '\n';
   }
+  return finalReport;
 }
 
 
@@ -258,7 +357,8 @@ function report(rover){
 
 
 module.exports = {CreatePlateau,
-    CreateRover, readInputData, howManyRovers, moveRover, report };
+    CreateRover, createRoversArray,
+  readInputData, howManyRovers, moveRovers, moveRover, reportRovers, report };
 
 
 
