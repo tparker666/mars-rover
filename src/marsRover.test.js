@@ -255,4 +255,21 @@ it("should do full end to end", () => {
 
 });
 
+describe("rovers in conflict", () => {
+
+  it("should detect rover in the way and push it along", () => {
+    const input = '5 5\n0 0 N\nMM\n0 1 N\nRM';
+    const plateau = new CreatePlateau(input);
+    const rovers = createRoversArray(input, plateau);
+//    const rover = new CreateRover(input, plateau, 1);
+    moveRovers(rovers);
+//    moveRover(rover);
+   let finalReport = reportRovers(rovers);
+
+    expect(reportRovers(rovers)).toEqual('0 2 N\n1 3 E\n');
+
+  })
+
+})
+
 

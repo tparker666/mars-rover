@@ -24,7 +24,9 @@ const run = () => {
   let rovers = createRoversArray(data, plateau);
 
   moveRovers(rovers);
- reportRovers(rovers);
+  let finalReport = reportRovers(rovers);
+
+  console.log(finalReport);
 
 };
 
@@ -35,7 +37,6 @@ run();
 function readInputData(filePath){
 
   let data = fs.readFileSync(filePath, 'utf8');
-
 
   return data;
 };
