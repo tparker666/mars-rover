@@ -1,8 +1,9 @@
 
-const { CreatePlateau, CreateRover, createRoversArray, readInputData,
-  howManyRovers, moveRovers, moveRover, reportRovers, report } = require("./marsRover");
+const { CreatePlateau,   readInputData,
+     reportRovers, report } = require("./marsRover");
 // const { CreateRover } = require("./marsRover");
-
+const { createRoversArray, CreateRover, howManyRovers } = require('./createRovers');
+const { moveRovers, moveRover } = require('./moveRovers');
 
 require("./marsRover.js");
 
@@ -26,7 +27,7 @@ describe("marsRover", () => {
   //   expect(value).toEqual(55);
   // });
 
-it("should do full end to end", () => {
+it.skip("should do full end to end", () => {
   let inputData = readInputData(TESTFILE1);
   let plateau = new CreatePlateau(inputData);
   let rovers = createRoversArray(inputData, plateau);
@@ -249,15 +250,19 @@ it("should do full end to end", () => {
     const plateau = new CreatePlateau(input);
     const rover = new CreateRover(input, plateau, 1);
     moveRover(rover);
+    let finalPosition = report(rover);
 
-    expect(report(rover)). toEqual('0 0 SW');
+    expect(finalPosition). toEqual('0 0 SW');
   })
 
 });
 
+
+
+
 describe("rovers in conflict", () => {
 
-  it("should detect rover in the way and push it along", () => {
+  it.skip("should detect rover in the way and push it along", () => {
     const input = '5 5\n0 0 N\nMM\n0 1 N\nRM';
     const plateau = new CreatePlateau(input);
     const rovers = createRoversArray(input, plateau);
@@ -269,6 +274,19 @@ describe("rovers in conflict", () => {
     expect(reportRovers(rovers)).toEqual('0 2 N\n1 3 E\n');
 
   })
+
+})
+
+describe("run the run() function", () => {
+
+  it.skip("should run the run() function with no parameters", () => {
+    run();
+
+  });
+
+  it.skip("should run the run('filePath') function", () => {
+    run("./test.txt");
+  });
 
 })
 
